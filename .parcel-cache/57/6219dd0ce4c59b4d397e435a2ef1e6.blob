@@ -1,1 +1,0 @@
-module.exports = require('./bundle-url').getBundleURL() + "background.HASH_REF_36d25b6e26106d9da28d23c7e56daca6.jpg"
