@@ -9,3 +9,4 @@ It's also using prettier and eslint plugins.
 1. execute `npm install`
 2. manually enter this url `http://localhost:1234/sign-up` (p.s. have decided not to create sign-in page)
 3. procced with filling out the form (fyi, there are a couple of issues with email validation at the moment.)
+4. execute `npm start` in order to run the project

@@ -1,0 +1,319 @@
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _emotionReact = require("@emotion/react");
+  var _urlAssetsImagesBackgroundJpg = require('url:../assets/images/background.jpg');
+  var _urlAssetsImagesBackgroundJpgDefault = _parcelHelpers.interopDefault(_urlAssetsImagesBackgroundJpg);
+  var _reactHookForm = require("react-hook-form");
+  var _react = require("react");
+  var _jsxFileName = "/Users/dmitrii/Desktop/exercising/gym-signup-ui/src/SignUp.jsx", _s = $RefreshSig$();
+  function _extends() {
+    _extends = Object.assign || (function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    });
+    return _extends.apply(this, arguments);
+  }
+  const errorMessage = _emotionReact.css`
+  display: block;
+  margin: -0.8rem 0 1rem 0;
+  font-weight: 300;
+  color: red;
+`;
+  const positionStyple = _emotionReact.css`
+  width: 18em;
+  position: absolute;
+  z-index: 1;
+  background: white;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  padding: 1.5em 1em 1.5em 1em;
+`;
+  const SignUp = () => {
+    _s();
+    const [formSubmitted, setFormSubmitted] = _react.useState(false);
+    const [email, setEmail] = _react.useState("");
+    const {formState: {errors}, register, handleSubmit, getValues, setError} = _reactHookForm.useForm();
+    const submitForm = formData => {
+      if (formData.password !== formData.verifiedPassword) return;
+      setEmail(formData.email);
+      fetch(`http://localhost:5000/users`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        if (res.status === 200) {
+          setFormSubmitted(true);
+        }
+        if (res.status === 400) {
+          setError("emailIsInvalid", {
+            type: "manual",
+            message: "Email is invalid"
+          });
+        }
+        if (res.status === 409) {
+          setError("userAlreadyExist", {
+            type: "manual",
+            message: "An account with this email already exists"
+          });
+        }
+      }).catch(err => console.log(err));
+    };
+    return _emotionReact.jsx("div", {
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 67,
+        columnNumber: 5
+      }
+    }, formSubmitted && _emotionReact.jsx("span", {
+      css: _emotionReact.css`
+            ${positionStyple} top: 30%;
+          `,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 69,
+        columnNumber: 9
+      }
+    }, `Before login to Gym platform, you’ll need to verify your account. 
+    We’ve sent a verification link to ${email}`), !formSubmitted && _emotionReact.jsx("form", {
+      css: _emotionReact.css`
+            ${positionStyple}
+            top: 50%;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            input {
+              display: block;
+              padding: 0.75rem;
+              font-size: 1rem;
+              margin-bottom: 1rem;
+            }
+          `,
+      onSubmit: handleSubmit(submitForm),
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 79,
+        columnNumber: 9
+      }
+    }, _emotionReact.jsx("label", {
+      htmlFor: "fname",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 95,
+        columnNumber: 11
+      }
+    }, "First name"), _emotionReact.jsx("input", _extends({
+      id: "fname"
+    }, register("fname", {
+      required: true
+    }), {
+      type: "text",
+      name: "fname",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 96,
+        columnNumber: 11
+      }
+    })), errors.fname && _emotionReact.jsx("span", {
+      css: errorMessage,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 103,
+        columnNumber: 13
+      }
+    }, "Please provide first name."), _emotionReact.jsx("label", {
+      htmlFor: "lname",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 105,
+        columnNumber: 11
+      }
+    }, "Last name"), _emotionReact.jsx("input", _extends({
+      id: "lname"
+    }, register("lname", {
+      required: true
+    }), {
+      type: "text",
+      name: "lname",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 106,
+        columnNumber: 11
+      }
+    })), errors.lname && _emotionReact.jsx("span", {
+      css: errorMessage,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 113,
+        columnNumber: 13
+      }
+    }, "Please provide last name."), _emotionReact.jsx("label", {
+      htmlFor: "email",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 115,
+        columnNumber: 11
+      }
+    }, "Email"), _emotionReact.jsx("input", _extends({}, register("email", {
+      required: true
+    }), {
+      type: "text",
+      name: "email",
+      id: "email",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 116,
+        columnNumber: 11
+      }
+    })), errors.email && _emotionReact.jsx("span", {
+      css: errorMessage,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 123,
+        columnNumber: 13
+      }
+    }, "Please provide email."), errors.emailIsInvalid && _emotionReact.jsx("span", {
+      css: _emotionReact.css(errorMessage),
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 126,
+        columnNumber: 13
+      }
+    }, errors.emailIsInvalid.message), _emotionReact.jsx("label", {
+      htmlFor: "password",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 128,
+        columnNumber: 11
+      }
+    }, "Choose a password"), _emotionReact.jsx("input", _extends({
+      id: "password"
+    }, register("password", {
+      required: true
+    }), {
+      type: "text",
+      name: "password",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 129,
+        columnNumber: 11
+      }
+    })), errors.password && _emotionReact.jsx("span", {
+      css: errorMessage,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 136,
+        columnNumber: 13
+      }
+    }, "Please provide password."), _emotionReact.jsx("label", {
+      htmlFor: "verifiedPassword",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 138,
+        columnNumber: 11
+      }
+    }, "Verify password"), _emotionReact.jsx("input", _extends({
+      id: "verifiedPassword"
+    }, register("verifiedPassword", {
+      required: true
+    }), {
+      type: "text",
+      name: "verifiedPassword",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 139,
+        columnNumber: 11
+      }
+    })), getValues("password") !== getValues("verifiedPassword") && _emotionReact.jsx("span", {
+      css: errorMessage,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 146,
+        columnNumber: 13
+      }
+    }, "Password isn't matched."), errors.userAlreadyExist && _emotionReact.jsx("span", {
+      css: _emotionReact.css(errorMessage),
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 149,
+        columnNumber: 13
+      }
+    }, errors.userAlreadyExist.message), _emotionReact.jsx("button", {
+      css: _emotionReact.css`
+              padding: 1em;
+              font-size: 18px;
+              &:hover {
+                cursor: pointer;
+              }
+            `,
+      type: "submit",
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 153,
+        columnNumber: 11
+      }
+    }, "Sign up")), _emotionReact.jsx("img", {
+      alt: "",
+      css: _emotionReact.css`
+          position: fixed;
+          width: 100%;
+          height: 100%;
+        `,
+      src: _urlAssetsImagesBackgroundJpgDefault.default,
+      __self: undefined,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 167,
+        columnNumber: 7
+      }
+    }));
+  };
+  _s(SignUp, "YQPwh8wz2e/GlfrlsVW+AhfxE/o=", false, function () {
+    return [_reactHookForm.useForm];
+  });
+  _c = SignUp;
+  exports.default = SignUp;
+  var _c;
+  $RefreshReg$(_c, "SignUp");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

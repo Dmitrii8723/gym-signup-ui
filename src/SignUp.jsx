@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import backgroundImage from "../assets/images/background.jpg";
+import backgroundImage from 'url:../assets/images/background.jpg';
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 

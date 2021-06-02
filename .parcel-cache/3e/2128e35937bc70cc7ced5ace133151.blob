@@ -1,0 +1,52 @@
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _reactDom = require("react-dom");
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  var _reactDomDefault = _parcelHelpers.interopDefault(_reactDom);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _reactRouterDom = require("react-router-dom");
+  var _SignUp = require("./SignUp");
+  var _SignUpDefault = _parcelHelpers.interopDefault(_SignUp);
+  var _AccountVerification = require("./AccountVerification");
+  var _AccountVerificationDefault = _parcelHelpers.interopDefault(_AccountVerification);
+  var _history = require("history");
+  var _jsxFileName = "/Users/dmitrii/Desktop/exercising/gym-signup-ui/src/index.jsx";
+  const history = _history.createBrowserHistory();
+  const Index = /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Router, {
+    history: history,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 3
+    }
+  }, /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
+    path: "/sign-up",
+    component: _SignUpDefault.default,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11,
+      columnNumber: 5
+    }
+  }), /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Route, {
+    path: "/account-verification/:token",
+    component: _AccountVerificationDefault.default,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 12,
+      columnNumber: 5
+    }
+  }));
+  _reactDomDefault.default.render(Index, document.getElementById("root"));
+  document.getElementById("root");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
