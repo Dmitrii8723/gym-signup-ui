@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import { jsx, css } from '@emotion/react';
 import backgroundImage from 'url:../assets/images/background.jpg';
-import { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { sendToken } from './routes';
 
 const spanStyle = css`
   width: 18em;
@@ -22,13 +23,7 @@ const AccountVerification = withRouter(({ match }) => {
   const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     const { token } = match.params;
-    fetch(`http://localhost:5000/account-verification/${token}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
+    sendToken(token).then((res) => {
       if (res.status === 201) {
         setAuthenticated(true);
         return;
