@@ -1,19 +1,29 @@
 import ReactDom from 'react-dom';
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import SignUp from './SignUp';
 import AccountVerification from './AccountVerification';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory();
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache()
+});
 
 const Index = (
-  <Router history={history}>
+  <ApolloProvider client={client}>
+  <BrowserRouter history={history}>
     <Route path='/sign-up' component={SignUp} />
     <Route
       path='/account-verification/:token'
       component={AccountVerification}
     />
-  </Router>
+  </BrowserRouter>
+  </ApolloProvider>
 );
 
 ReactDom.render(Index, document.getElementById('root'));

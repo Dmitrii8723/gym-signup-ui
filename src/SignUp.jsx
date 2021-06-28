@@ -3,7 +3,13 @@ import { jsx, css } from '@emotion/react';
 import backgroundImage from 'url:../assets/images/background.jpg';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { createAccount } from './routes';
+import { gql, useMutation } from '@apollo/client';
+
+const POST_USER = gql`
+mutation CreateUser($fname: String, $lname: String, $email: String, $password: String) {
+  createUser(fname: $fname, lname: $lname, email: $email, password: $password)
+}
+    `;
 
 const errorMessage = css`
   display: block;
@@ -33,28 +39,32 @@ const SignUp = () => {
     getValues,
     setError,
   } = useForm();
+  const [createUser] = useMutation(POST_USER, {
+    onError: (error) => console.log('error', error),
+    onCompleted: (res) => {
+      if (res.createUser === 200) {
+      setFormSubmitted(true);
+      } 
+      if (res.createUser === 400) {
+        setError('emailIsInvalid', {
+          type: 'manual',
+          message: 'Email is invalid',
+        });
+      }
+      if (res.createUser === 409) {
+        setError('userAlreadyExist', {
+          type: 'manual',
+          message: 'An account with this email already exists',
+        });
+      }
+    }
+  });
 
   const submitForm = (formData) => {
     if (formData.password !== formData.verifiedPassword) return;
-    setEmail(formData.email);
-    createAccount(formData).then((res) => {
-        if (res.status === 200) {
-          setFormSubmitted(true);
-        }
-        if (res.status === 400) {
-          setError('emailIsInvalid', {
-            type: 'manual',
-            message: 'Email is invalid',
-          });
-        }
-        if (res.status === 409) {
-          setError('userAlreadyExist', {
-            type: 'manual',
-            message: 'An account with this email already exists',
-          });
-        }
-      })
-      .catch((err) => console.log(err));
+    const { fname, lname, email, password } = formData;
+    setEmail(email);
+    createUser({ variables: { fname, lname, email, password }});
   };
   return (
     <div>

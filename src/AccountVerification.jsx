@@ -3,7 +3,13 @@ import { jsx, css } from '@emotion/react';
 import backgroundImage from 'url:../assets/images/background.jpg';
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { sendToken } from './routes';
+import { gql, useMutation } from '@apollo/client';
+
+const UPDATE_USER = gql`
+mutation UpdateUser($email_verified: Boolean, $token: String) {
+  updateUser(email_verified: $email_verified, token: $token)
+}
+    `;
 
 const spanStyle = css`
   width: 18em;
@@ -21,15 +27,21 @@ const spanStyle = css`
 
 const AccountVerification = withRouter(({ match }) => {
   const [authenticated, setAuthenticated] = useState(false);
-  useEffect(() => {
-    const { token } = match.params;
-    sendToken(token).then((res) => {
-      if (res.status === 201) {
+  const [updateUser] = useMutation(UPDATE_USER, {
+    onError: (error) => console.log('error', error),
+    onCompleted: (res) => {
+      if (res.updateUser === 201) {
         setAuthenticated(true);
         return;
       }
-      return;
-    });
+      if (res.updateUser === 401) {
+        setAuthenticated(false);
+      }
+    }
+  });
+  useEffect(() => {
+    const { token } = match.params;
+    updateUser({ variables: { email_verified: true, token }});
   }, []);
   return (
     <div>
